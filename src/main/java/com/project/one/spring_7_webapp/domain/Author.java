@@ -11,6 +11,7 @@ public class Author {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String firstName;
+    private String middleName;
     private String lastName;
 
     public Long getId() {
