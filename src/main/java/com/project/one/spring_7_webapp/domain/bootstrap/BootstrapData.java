@@ -1,0 +1,53 @@
+package com.project.one.spring_7_webapp.domain.bootstrap;
+
+import com.project.one.spring_7_webapp.domain.Author;
+import com.project.one.spring_7_webapp.domain.Book;
+import com.project.one.spring_7_webapp.domain.repositories.AuthorRepository;
+import com.project.one.spring_7_webapp.domain.repositories.BookRepository;
+import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
+
+@Component
+public class BootstrapData implements CommandLineRunner {
+    private final AuthorRepository authorRepository;
+    private final BookRepository bookRepository;
+
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+        this.authorRepository = authorRepository;
+        this.bookRepository = bookRepository;
+    }
+
+    @Override
+    public void run(String... args) throws Exception {
+        Author author1 = new Author();
+        author1.setFirstName("Corey");
+        author1.setLastName("Rose");
+
+        Author author2 = new Author();
+        author2.setFirstName("Napoleon");
+        author2.setLastName("Hill");
+
+        Book book1 = new Book();
+        book1.setTitle("Corey Rose: The Autobiography");
+        book1.setIsbn("777");
+
+        Book book2 = new Book();
+        book2.setTitle("Think and Grow Rich");
+        book2.setIsbn("246");
+
+        Author author1Saved = authorRepository.save(author1);
+        Book book1Saved = bookRepository.save(book1);
+
+        Author author2Saved = authorRepository.save(author2);
+        Book book2Saved = bookRepository.save(book2);
+
+        author1Saved.getBooks().add(book1Saved);
+        author2Saved.getBooks().add(book2Saved);
+        authorRepository.save(author1Saved);
+        authorRepository.save(author2Saved);
+
+        System.out.println("In Bootstrap");
+        System.out.println("Author Count: " + authorRepository.count());
+        System.out.println("Book Count: " + bookRepository.count());
+    }
+}

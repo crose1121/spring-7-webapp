@@ -2,6 +2,7 @@ package com.project.one.spring_7_webapp.domain;
 
 import jakarta.persistence.*;
 
+import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
@@ -20,7 +21,7 @@ public class Book {
             inverseJoinColumns = @JoinColumn(name = "author_id")
     )
 
-    private Set<Author> authors;
+    private Set<Author> authors = new HashSet<>();
 
     public Long getId() {
         return id;
