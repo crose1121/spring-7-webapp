@@ -23,6 +23,9 @@ public class Book {
 
     private Set<Author> authors = new HashSet<>();
 
+    @ManyToOne
+    private Publisher publisher;
+
     public Long getId() {
         return id;
     }
