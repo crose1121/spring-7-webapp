@@ -2,8 +2,10 @@ package com.project.one.spring_7_webapp.domain.bootstrap;
 
 import com.project.one.spring_7_webapp.domain.Author;
 import com.project.one.spring_7_webapp.domain.Book;
+import com.project.one.spring_7_webapp.domain.Publisher;
 import com.project.one.spring_7_webapp.domain.repositories.AuthorRepository;
 import com.project.one.spring_7_webapp.domain.repositories.BookRepository;
+import com.project.one.spring_7_webapp.domain.repositories.PublisherRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
@@ -11,10 +13,12 @@ import org.springframework.stereotype.Component;
 public class BootstrapData implements CommandLineRunner {
     private final AuthorRepository authorRepository;
     private final BookRepository bookRepository;
+    private final PublisherRepository publisherRepository;
 
-    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository) {
+    public BootstrapData(AuthorRepository authorRepository, BookRepository bookRepository, PublisherRepository publisherRepository) {
         this.authorRepository = authorRepository;
         this.bookRepository = bookRepository;
+        this.publisherRepository = publisherRepository;
     }
 
     @Override
@@ -35,11 +39,22 @@ public class BootstrapData implements CommandLineRunner {
         book2.setTitle("Think and Grow Rich");
         book2.setIsbn("246");
 
+        Publisher publisher1 = new Publisher();
+        publisher1.setPublisherName("Corey Rose Publishing");
+        publisher1.setAddress("Bellair Ave");
+        publisher1.setCity("Fair Lawn");
+        publisher1.setState("NJ");
+        publisher1.setZipCode("07410");
+
         Author author1Saved = authorRepository.save(author1);
         Book book1Saved = bookRepository.save(book1);
 
         Author author2Saved = authorRepository.save(author2);
         Book book2Saved = bookRepository.save(book2);
+
+        publisher1.getBooks().add(book1Saved);
+        publisher1.getBooks().add(book2Saved);
+        publisherRepository.save(publisher1);
 
         author1Saved.getBooks().add(book1Saved);
         author2Saved.getBooks().add(book2Saved);
@@ -49,5 +64,6 @@ public class BootstrapData implements CommandLineRunner {
         System.out.println("In Bootstrap");
         System.out.println("Author Count: " + authorRepository.count());
         System.out.println("Book Count: " + bookRepository.count());
+        System.out.println("Publisher Count: " + publisherRepository.count());
     }
 }
