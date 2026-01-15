@@ -26,6 +26,14 @@ public class Book {
     @ManyToOne
     private Publisher publisher;
 
+    public Publisher getPublisher() {
+        return publisher;
+    }
+
+    public void setPublisher(Publisher publisher) {
+        this.publisher = publisher;
+    }
+
     public Long getId() {
         return id;
     }
