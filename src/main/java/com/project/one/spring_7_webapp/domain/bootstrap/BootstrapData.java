@@ -47,17 +47,19 @@ public class BootstrapData implements CommandLineRunner {
         publisher1.setZipCode("07410");
 
         Author author1Saved = authorRepository.save(author1);
-        Book book1Saved = bookRepository.save(book1);
-
         Author author2Saved = authorRepository.save(author2);
-        Book book2Saved = bookRepository.save(book2);
 
-        publisher1.getBooks().add(book1Saved);
-        publisher1.getBooks().add(book2Saved);
+        publisher1.getBooks().add(book1);
+        publisher1.getBooks().add(book2);
         publisherRepository.save(publisher1);
 
-        author1Saved.getBooks().add(book1Saved);
-        author2Saved.getBooks().add(book2Saved);
+        author1Saved.getBooks().add(book1);
+        author2Saved.getBooks().add(book2);
+        book1.getAuthors().add(author1Saved);
+        book2.getAuthors().add(author2Saved);
+
+        bookRepository.save(book1);
+        bookRepository.save(book2);
         authorRepository.save(author1Saved);
         authorRepository.save(author2Saved);
 
